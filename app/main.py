@@ -1,5 +1,5 @@
 import cherrypy
-from helpers import generate_output
+from helpers import generate_output, determine_ip
 
 
 class PlayerCountExporter():
@@ -11,22 +11,22 @@ class PlayerCountExporter():
 @cherrypy.popargs('ip', 'port')
 class bf2():
     @cherrypy.expose()
-    def index(self, ip='127.0.0.1', port=29900):
+    def index(self, ip=None, port=29900):
         from collectors import bf2
         cherrypy.response.headers['Cache-Control'] = 'no-cache'
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
-        iname, up, numplayers, maxplayers = bf2(ip, port)
+        iname, up, numplayers, maxplayers = bf2(determine_ip(ip), port)
         return generate_output('bf2', iname, up, numplayers, maxplayers)
 
 
 @cherrypy.popargs('ip', 'port')
 class ut2k4():
     @cherrypy.expose()
-    def index(self, ip='127.0.0.1', port=29900):
+    def index(self, ip=None, port=10777):
         from collectors import ut2k4
         cherrypy.response.headers['Cache-Control'] = 'no-cache'
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
-        iname, up, numplayers, maxplayers = ut2k4(ip, port)
+        iname, up, numplayers, maxplayers = ut2k4(determine_ip(ip), port)
         return generate_output('ut2k4', iname, up, numplayers, maxplayers)
 
 

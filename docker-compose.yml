@@ -1,0 +1,11 @@
+services:
+  playercount-exporter:
+    image: nilsost/playercount-exporter:latest
+    container_name: playercount-exporter
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      - DEFAULT_IP=host.docker.internal
+    ports:
+      - 8080:8080

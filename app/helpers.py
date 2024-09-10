@@ -1,3 +1,12 @@
+import os
+
+
+def determine_ip(ip=None):
+    if ip is not None:
+        return ip
+    if os.environ.get('DEFAULT_IP', None) is not None:
+        return os.environ['DEFAULT_IP']
+    return '127.0.0.1'
 
 
 def generate_output(game, ingamename, up, numplayers, maxplayers):
