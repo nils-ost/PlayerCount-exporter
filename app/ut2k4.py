@@ -13,7 +13,7 @@ try:
     data, addr = sock.recvfrom(200)
     sock.close()
 
-    servername = '???'
+    servername = data[19:18 + data[18]].decode(errors='ignore')
     maxpalyers = data[-17]
     numplayers = data[-21]
     print(addr, servername, numplayers, maxpalyers)
