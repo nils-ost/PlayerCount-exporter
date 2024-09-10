@@ -24,26 +24,25 @@ The easiest way is to start one exporter on each GameServer via Docker. Just tak
 
 ```
 scrape_configs:
-  - job_name: 'playercount'
+  - job_name: 'pc-bf2'
     static_configs:
       - targets: ['192.168.0.21:8080']
-        metrics_path: /bf2
         labels:
           server: 'bf2-server1'
       - targets: ['192.168.0.22:8080']
-        metrics_path: /bf2
         labels:
           server: 'bf2-server2'
       - targets: ['192.168.0.23:8080']
-        metrics_path: /bf2
         labels:
           server: 'bf2-server3'
+    metrics_path: /bf2
+
+  - job_name: 'pc-ut2k4'
       - targets: ['192.168.0.241:8080']
-        metrics_path: /ut2k4
         labels:
           server: 'ut2k4-server1'
       - targets: ['192.168.0.242:8080']
-        metrics_path: /ut2k4
         labels:
           server: 'ut2k4-server2'
+    metrics_path: /ut2k4
 ```
