@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.2.1
+
+  * Bugfix: forgot to add the endpoint to cherrypy
+
 ## v0.2.0
 
   * Added collector for mc (Minecraft)

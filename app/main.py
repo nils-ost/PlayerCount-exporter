@@ -6,6 +6,7 @@ class PlayerCountExporter():
     def __init__(self):
         self.bf2 = bf2()
         self.ut2k4 = ut2k4()
+        self.mc = mc()
 
 
 @cherrypy.popargs('ip', 'port')
