@@ -30,6 +30,17 @@ class ut2k4():
         return generate_output('ut2k4', iname, up, numplayers, maxplayers)
 
 
+@cherrypy.popargs('ip', 'port')
+class mc():
+    @cherrypy.expose()
+    def index(self, ip=None, port=25565):
+        from collectors import mc
+        cherrypy.response.headers['Cache-Control'] = 'no-cache'
+        cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
+        iname, up, numplayers, maxplayers = mc(determine_ip(ip), port)
+        return generate_output('mc', iname, up, numplayers, maxplayers)
+
+
 if __name__ == '__main__':
     conf = {}
     cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': 8080})

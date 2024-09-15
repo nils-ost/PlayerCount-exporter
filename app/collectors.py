@@ -1,4 +1,5 @@
 import socket
+import json
 
 
 def bf2(ip, port):
@@ -40,5 +41,30 @@ def ut2k4(ip, port):
         up = 1
     except TimeoutError:
         pass
+
+    return (iname, up, numplayers, maxplayers)
+
+
+def mc(ip, port):
+    iname, numplayers, maxplayers, up = ('', 0, 0, 0)
+    data = None
+
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
+        try:
+            sock.settimeout(0.5)
+            sock.connect((ip, port))
+            msg = bytes.fromhex('1500ff050e') + sock.getpeername()[0].encode() + bytes.fromhex('63dd01')
+            sock.sendall(msg)
+            msg = bytes.fromhex('0100')
+            sock.sendall(msg)
+            data = sock.recv(2000)
+
+            data = json.loads('{' + data.replace(b'\x00', b' ').decode(errors='ignore').split('{', 1)[-1].rsplit('}', 1)[0] + '}')
+            iname = data.get('description', '')
+            maxplayers = data.get('players', dict()).get('max', 0)
+            numplayers = data.get('players', dict()).get('online', 0)
+            up = 1
+        except TimeoutError:
+            pass
 
     return (iname, up, numplayers, maxplayers)
