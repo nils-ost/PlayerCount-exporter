@@ -53,7 +53,11 @@ def mc(ip, port):
         try:
             sock.settimeout(0.5)
             sock.connect((ip, port))
-            msg = bytes.fromhex('1500ff050e') + sock.getpeername()[0].encode() + bytes.fromhex('63dd01')
+            msg_len = hex(len(sock.getpeername()[0]) + 7).replace('0x', '')
+            msg_len = bytes.fromhex(msg_len if len(msg_len) == 2 else '0' + msg_len)
+            ip_len = hex(len(sock.getpeername()[0])).replace('0x', '')
+            ip_len = bytes.fromhex(ip_len if len(ip_len) == 2 else '0' + ip_len)
+            msg = msg_len + bytes.fromhex('00ff05') + ip_len + sock.getpeername()[0].encode() + bytes.fromhex('63dd01')
             sock.sendall(msg)
             msg = bytes.fromhex('0100')
             sock.sendall(msg)

@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.2.2
+
+  * Bugfix: in the payload to mc server
+
 ## v0.2.1
 
   * Bugfix: forgot to add the endpoint to cherrypy
