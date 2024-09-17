@@ -7,6 +7,7 @@ class PlayerCountExporter():
         self.bf2 = bf2()
         self.ut2k4 = ut2k4()
         self.mc = mc()
+        self.cod2 = cod2()
 
 
 @cherrypy.popargs('ip', 'port')
@@ -40,6 +41,17 @@ class mc():
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
         iname, up, numplayers, maxplayers = mc(determine_ip(ip), port)
         return generate_output('mc', iname, up, numplayers, maxplayers)
+
+
+@cherrypy.popargs('ip', 'port')
+class cod2():
+    @cherrypy.expose()
+    def index(self, ip=None, port=28960):
+        from collectors import cod2
+        cherrypy.response.headers['Cache-Control'] = 'no-cache'
+        cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
+        iname, up, numplayers, maxplayers = cod2(determine_ip(ip), port)
+        return generate_output('cod2', iname, up, numplayers, maxplayers)
 
 
 if __name__ == '__main__':

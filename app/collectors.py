@@ -72,3 +72,29 @@ def mc(ip, port):
             pass
 
     return (iname, up, numplayers, maxplayers)
+
+
+def cod2(ip, port):
+    iname, numplayers, maxplayers, up = ('', 0, 0, 0)
+
+    msg = bytes.fromhex('ffffffff676574696e666f20787878')
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+    sock.settimeout(0.5)
+    try:
+        sock.sendto(msg, (ip, port))
+        data, addr = sock.recvfrom(2000)
+        sock.close()
+        data = data.replace(b'\x00', b' ').decode(errors='ignore').replace('\n', '').split('\\')
+
+        for i in range(len(data)):
+            if data[i] == 'hostname':
+                iname = data[i + 1]
+            if data[i] == 'clients':
+                numplayers = data[i + 1]
+            if data[i] == 'sv_maxclients':
+                maxplayers = data[i + 1]
+        up = 1
+    except TimeoutError:
+        pass
+
+    return (iname, up, numplayers, maxplayers)

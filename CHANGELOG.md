@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.3.0
+
+  * Added collector for cod2 (Call of Duty 2)
+
 ## v0.2.2
 
   * Bugfix: in the payload to mc server

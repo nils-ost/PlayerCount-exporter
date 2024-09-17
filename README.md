@@ -54,4 +54,10 @@ scrape_configs:
         labels:
           server: 'mc-server2'
     metrics_path: /mc
+
+  - job_name: 'pc-cod2'
+      - targets: ['192.168.0.41:8080']
+        labels:
+          server: 'cod2-server1'
+    metrics_path: /cod2
 ```
