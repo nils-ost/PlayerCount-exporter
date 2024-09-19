@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.4.0
+
+  * Added collector for cod4 (Call of Duty 4)
+
 ## v0.3.0
 
   * Added collector for cod2 (Call of Duty 2)
