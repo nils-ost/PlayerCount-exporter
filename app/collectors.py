@@ -45,6 +45,29 @@ def ut2k4(ip, port):
     return (iname, up, numplayers, maxplayers)
 
 
+def ut3(ip, port):
+    iname, numplayers, maxplayers, up = ('', 0, 0, 0)
+    ip = '255.255.255.255'  # Needs to be broadcast in this case
+    msg = bytes.fromhex('05014d5707db53514e694a4f73504345')
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    sock.settimeout(1)
+    try:
+        sock.sendto(msg, (ip, port))
+        data, addr = sock.recvfrom(2000)
+        sock.close()
+        print(data)
+
+        iname = data[61:60 + data[60]].decode(errors='ignore')
+        maxplayers = data[35]
+        numplayers = maxplayers - data[27]
+        up = 1
+    except TimeoutError:
+        pass
+
+    return (iname, up, numplayers, maxplayers)
+
+
 def mc(ip, port):
     iname, numplayers, maxplayers, up = ('', 0, 0, 0)
     data = None

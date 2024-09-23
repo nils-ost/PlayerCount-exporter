@@ -46,6 +46,12 @@ scrape_configs:
           server: 'ut2k4-server2'
     metrics_path: /ut2k4
 
+  - job_name: 'pc-ut3'
+      - targets: ['192.168.0.33:8080']
+        labels:
+          server: 'ut3-server1'
+    metrics_path: /ut3
+
   - job_name: 'pc-mc'
       - targets: ['192.168.0.31:8080']
         labels:

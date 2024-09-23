@@ -6,6 +6,7 @@ class PlayerCountExporter():
     def __init__(self):
         self.bf2 = bf2()
         self.ut2k4 = ut2k4()
+        self.ut3 = ut3()
         self.mc = mc()
         self.cod2 = cod2()
         self.cod4 = cod4()
@@ -31,6 +32,17 @@ class ut2k4():
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
         iname, up, numplayers, maxplayers = ut2k4(determine_ip(ip), port)
         return generate_output('ut2k4', iname, up, numplayers, maxplayers)
+
+
+@cherrypy.popargs('ip', 'port')
+class ut3():
+    @cherrypy.expose()
+    def index(self, ip=None, port=14001):
+        from collectors import ut3
+        cherrypy.response.headers['Cache-Control'] = 'no-cache'
+        cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
+        iname, up, numplayers, maxplayers = ut3('', port)  # IP is ignored in this case
+        return generate_output('ut3', iname, up, numplayers, maxplayers)
 
 
 @cherrypy.popargs('ip', 'port')

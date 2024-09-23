@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.5.0
+
+  * Added collector for ut3 (Unreal Tournament 3)
+
 ## v0.4.0
 
   * Added collector for cod4 (Call of Duty 4)
