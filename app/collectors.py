@@ -58,7 +58,7 @@ def ut3(ip, port):
         sock.close()
         print(data)
 
-        iname = data[61:60 + data[60]].decode(errors='ignore')
+        iname = data[61:61 + data[60]].decode(errors='ignore')
         maxplayers = data[35]
         numplayers = maxplayers - data[27]
         up = 1
