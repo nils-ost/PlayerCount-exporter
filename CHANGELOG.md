@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.5.2
+
+  * Bugfix: in mc server-name parser
+
 ## v0.5.1
 
   * Bugfix: in ut3 server-name parser

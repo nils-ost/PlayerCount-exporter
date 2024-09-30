@@ -88,6 +88,8 @@ def mc(ip, port):
 
             data = json.loads('{' + data.replace(b'\x00', b' ').decode(errors='ignore').split('{', 1)[-1].rsplit('}', 1)[0] + '}')
             iname = data.get('description', '')
+            if isinstance(iname, dict) and 'text' in iname:
+                iname = iname['text']
             maxplayers = data.get('players', dict()).get('max', 0)
             numplayers = data.get('players', dict()).get('online', 0)
             up = 1
