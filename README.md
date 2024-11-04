@@ -1,20 +1,5 @@
 # PlayerCount-exporter
-Grafana-Prometheus exporter to get PlayerCount of diffent GameServers
-
-## Setup Dev-Environment
-
-On your workstation check-out this repo, `cd` into it and execute the following commands:
-
-```
-sudo apt update; sudo apt install python3 virtualenv direnv
-virtualenv -p /usr/bin/python3 venv
-venv/bin/pip install -r requirements.txt
-venv/bin/pre-commit install
-sed -nr '/direnv hook bash/!p;$aeval "\$(direnv hook bash)"' -i ~/.bashrc
-source ~/.bashrc
-echo -e "source venv/bin/activate\nunset PS1" > .envrc
-direnv allow
-```
+Grafana-Prometheus exporter to get PlayerCount of different GameServers
 
 ## Starting Exporter
 
@@ -72,4 +57,29 @@ scrape_configs:
         labels:
           server: 'cod4-server1'
     metrics_path: /cod4
+```
+
+## Setup Dev-Environment
+
+On your workstation check-out this repo, `cd` into it and execute the following commands:
+
+```
+sudo apt update; sudo apt install python3 virtualenv direnv
+virtualenv -p /usr/bin/python3 venv
+venv/bin/pip install -r requirements.txt
+venv/bin/pre-commit install
+sed -nr '/direnv hook bash/!p;$aeval "\$(direnv hook bash)"' -i ~/.bashrc
+source ~/.bashrc
+echo -e "source venv/bin/activate\nunset PS1" > .envrc
+direnv allow
+```
+
+## Setup Build-Environment
+
+If not allready created for an other project
+
+```
+sudo docker buildx create --name multi-arch --platform "linux/arm64,linux/amd64,linux/arm/v7" --driver "docker-container"
+sudo docker buildx use multi-arch
+sudo docker buildx inspect --bootstrap
 ```

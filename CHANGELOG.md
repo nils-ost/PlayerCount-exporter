@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.?.?
+
+  * Added support for ARM
+
 ## v0.5.2
 
   * Bugfix: in mc server-name parser

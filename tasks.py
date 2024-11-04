@@ -1,17 +1,17 @@
 from invoke import task
 
 
-@task(name='build-image')
+@task(name='build-image', aliases=['ib', ])
 def build_container_image(c):
     version = c.run('git describe')
     version = version.stdout.strip().replace('v', '', 1).rsplit('-', 1)[0].replace('-', '.')
-    c.run('cd app; sudo docker build -t nilsost/playercount-exporter:latest .')
-    c.run(f'sudo docker tag nilsost/playercount-exporter:latest nilsost/playercount-exporter:{version}')
+    c.run(f'cd app; sudo docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 -t nilsost/playercount-exporter:{version} .')
+    c.run('cd app; sudo docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 -t nilsost/playercount-exporter:latest .')
 
 
-@task(name='push-image')
+@task(name='build-push-image', aliases=['ibp', ])
 def push_container_image(c):
     version = c.run('git describe')
     version = version.stdout.strip().replace('v', '', 1).rsplit('-', 1)[0].replace('-', '.')
-    c.run(f'sudo docker push nilsost/playercount-exporter:{version}')
-    c.run('sudo docker push nilsost/playercount-exporter:latest')
+    c.run(f'cd app; sudo docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 -t nilsost/playercount-exporter:{version} --push .')
+    c.run('cd app; sudo docker buildx build --platform linux/arm64,linux/amd64,linux/arm/v7 -t nilsost/playercount-exporter:latest --push .')
