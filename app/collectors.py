@@ -149,3 +149,28 @@ def cod4(ip, port):
         pass
 
     return (iname, up, numplayers, maxplayers)
+
+
+def gmod(ip, port):
+    iname, numplayers, maxplayers, up = ('', 0, 0, 0)
+
+    msg = bytes.fromhex('ffffffff54536f7572636520456e67696e6520517565727900')
+    sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
+    sock.settimeout(0.5)
+    try:
+        sock.sendto(msg, (ip, port))
+        data, addr = sock.recvfrom(200)
+        msg = msg + data[-4:]
+        sock.sendto(msg, (ip, port))
+        data, addr = sock.recvfrom(300)
+        sock.close()
+        data = data[6:].split(b'\x00', 4)
+
+        iname = data[0].decode(errors='ignore')
+        numplayers = data[4][2]
+        maxplayers = data[4][3]
+        up = 1
+    except TimeoutError:
+        pass
+
+    return (iname, up, numplayers, maxplayers)

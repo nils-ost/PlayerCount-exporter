@@ -10,6 +10,7 @@ class PlayerCountExporter():
         self.mc = mc()
         self.cod2 = cod2()
         self.cod4 = cod4()
+        self.gmod = gmod()
 
 
 @cherrypy.popargs('ip', 'port')
@@ -76,6 +77,17 @@ class cod4():
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
         iname, up, numplayers, maxplayers = cod4(determine_ip(ip), port)
         return generate_output('cod4', iname, up, numplayers, maxplayers)
+
+
+@cherrypy.popargs('ip', 'port')
+class gmod():
+    @cherrypy.expose()
+    def index(self, ip=None, port=27015):
+        from collectors import gmod
+        cherrypy.response.headers['Cache-Control'] = 'no-cache'
+        cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
+        iname, up, numplayers, maxplayers = gmod(determine_ip(ip), port)
+        return generate_output('gmod', iname, up, numplayers, maxplayers)
 
 
 if __name__ == '__main__':

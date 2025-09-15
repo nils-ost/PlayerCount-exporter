@@ -1,7 +1,8 @@
 # PlayerCount-exporter Changelog
 
-## v0.?.?
+## v0.6.0
 
+  * Added collector for gmod (Garry's Mod)
   * Added support for ARM
 
 ## v0.5.2
