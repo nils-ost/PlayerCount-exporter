@@ -11,6 +11,7 @@ class PlayerCountExporter():
         self.cod2 = cod2()
         self.cod4 = cod4()
         self.gmod = gmod()
+        self.mohaa = mohaa()
 
 
 @cherrypy.popargs('ip', 'port')
@@ -88,6 +89,17 @@ class gmod():
         cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
         iname, up, numplayers, maxplayers = gmod(determine_ip(ip), port)
         return generate_output('gmod', iname, up, numplayers, maxplayers)
+
+
+@cherrypy.popargs('ip', 'port')
+class mohaa():
+    @cherrypy.expose()
+    def index(self, ip=None, port=12203):
+        from collectors import mohaa
+        cherrypy.response.headers['Cache-Control'] = 'no-cache'
+        cherrypy.response.headers['Content-Type'] = 'text/plain; version=0.0.4'
+        iname, up, numplayers, maxplayers = mohaa(determine_ip(ip), port)
+        return generate_output('mohaa', iname, up, numplayers, maxplayers)
 
 
 if __name__ == '__main__':

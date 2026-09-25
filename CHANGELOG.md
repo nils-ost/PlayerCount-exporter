@@ -1,5 +1,9 @@
 # PlayerCount-exporter Changelog
 
+## v0.7.0
+
+  * Added collector for mohaa (Medal of Honor: Allied Assault)
+
 ## v0.6.0
 
   * Added collector for gmod (Garry's Mod)
